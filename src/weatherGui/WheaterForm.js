@@ -28,12 +28,12 @@ class WeatherForm extends React.Component {
     handleSubmit = event => {
         event.preventDefault();
 
-        axios.get('https://www.metaweather.com/api/location/search/', {params: {query: this.state.location}})
+        axios.get('/api/location/search/', {params: {query: this.state.location}})
             .then(res => {
                 const locationData = res.data[0].woeid;
                 this.setState({locationData});
 
-                axios.get('https://www.metaweather.com/api/location/' + this.state.locationData + '/')
+                axios.get('/api/location/' + this.state.locationData + '/')
                     .then(res => {
                         let weatherData = res.data.consolidated_weather;
                         this.setState({weatherData});
@@ -64,7 +64,7 @@ class WeatherForm extends React.Component {
                         </div>
                         <div className="currentWeather">
                                 <span className="conditions"><img
-                                    src={'https://www.metaweather.com/static/img/weather/png/64/' + this.state.weatherData[0].weather_state_abbr + '.png'}/></span>
+                                    src={'/static/img/weather/png/64/' + this.state.weatherData[0].weather_state_abbr + '.png'}/></span>
                             <div className="info">
                                 <span className="rain">{Math.round(this.state.weatherData[0].humidity)} %</span>
                                 <span className="wind">{Math.round(this.state.weatherData[0].wind_speed)} MPH</span>
